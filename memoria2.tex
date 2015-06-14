@@ -31,6 +31,7 @@
 \usepackage{float}  %% H para posicionar figuras
 \usepackage[nottoc, notlot, notlof, notindex]{tocbibind} %% Opciones de índice
 \usepackage{latexsym}  %% Logo LaTeX
+\usepackage{cite}
 
 \title{Dr.Scratch Herramienta de análisis automático de proyectos Scratch}
 \author{Cristian David Chushig Muzo}
@@ -48,8 +49,8 @@
 \begin{titlepage}
 \begin{center}
 \begin{tabular}[c]{c c}
-%\includegraphics[bb=0 0 194 352, scale=0.25]{logo} &
-%\includegraphics[scale=0.25]{img/logo_vect.png} &
+%\includegraphics[bb=0 0 194 352, scale=0.25]{logo_vect} &
+%\includegraphics[scale=0.25]{logo_vect} &
 \begin{tabular}[b]{l}
 \Huge
 \textsf{UNIVERSIDAD} \\
@@ -215,10 +216,24 @@ que se pueden potenciar en el contexto y proceso del aprendizaje de la programac
 %\addcontentsline{toc}{chapter}{Summary} % si queremos que aparezca en el índice
 \markboth{SUMMARY}{SUMMARY} % encabezado
 
-Here comes a translation of the ``Resumen'' into English. Please, double check
-it for correct grammar and spelling. As it is the translation of the ``Resumen'',
-which is supposed to be written at the end, this as well should be filled out
-just before submitting.
+This work includes the development of a web platform, Dr. Scratch, oriented
+Scratch evaluation of projects in relation to aspects of computational thinking.
+The core of Dr. Scratch is \texttt {Hairball}, a framework used for static analysis
+Scratch projects through a Linux console. Dr. Scratch presents results
+\texttt{Hairball} suit the audience of the application. \\
+
+The main objective is to create an automated and easy to use tool for Scratch 
+analysis projects. For this, the web interface is used and is being as friendly 
+as possible with the public, especially children and young people starting
+its way into the world of programming. \\
+
+The project was carried out mainly with the Django framework of the server, 
+\texttt{Hairball} of core and Bootstrap framework for the \emph{Front End}. \\
+
+Dr. Scratch project is an initiative within Systems Group and Communications
+(GSyC) from the University Rey Juan Carlos (URJC) researching the
+development impact of computational thinking skills and looking check
+which can be enhanced in the context and process of learning programming.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -297,7 +312,9 @@ claros de éstas habilidades.
 
 El objetivo general del proyecto es crear una herramienta y plataforma para que los
 usuarios de Scratch puedan evaluar sus proyectos y hacer un seguimiento de su progreso
-en relación a habilidades de pensamiento computacional.
+en relación a habilidades de pensamiento computacional. Esta plataforma debe ser
+de fácil usabilidad y adaptado para niños que empiezan en el mundo de la 
+programación.
 
 
 \section{Objetivos específicos}
@@ -307,11 +324,16 @@ en relación a habilidades de pensamiento computacional.
   \item Crear una arquitectura software que permita la convergencia entre el framework 
 	\texttt{Hairball} con las tecnologías web, con el fin de mejorar su usabilidad y 
 	experiencia de usuario. En 	primera instancia el análisis de los proyectos se hará 
-	subiéndolos en el formato sb2.
+	subiéndolos a la plataforma en el formato sb2 que corresponde con el tipo de
+	proyectos Scratch.
+	\item Crear métodos de extracción y tratamiendo de los datos obtenidos por los
+	plugins de \texttt{Hairball} y conectarlos con las funcionalidades que ofrece
+	Django.
   \item Construir un modelo de datos que se adapte a la salida de datos que ofrece 
 	\texttt{Hairball} y parametrizarlo con las herramientas ofrecidas por Django.
   \item Adaptar el contexto ofrecido por Django a todo el potencial que ofrece Bootstrap 
-	como herramienta de \emph{Front End}.
+	como herramienta de \emph{Front End}, permitiendo crear una plataforma atractiva 
+	desde el punto de vista del diseño y presentación.
   \item Introducir técnicas de \emph{ludificación} dentro de la plataforma para atraer 
 	la atención y uso de los usuarios.
 	\item Permitir un seguimiento de la evolución de los usuarios de Dr. Scratch en 
@@ -418,12 +440,33 @@ Scratch. Está dividido en tres partes: el servidor basado en Django, el framewo
 \label{sec:arquitectura}
 
 La arquitectura de Dr. Scratch se muestra en la figura 4.1. Está claramente identificado
-con el modelo cliente-servidor. El usuario a través de un navegador subirá su proyecto
-o introducirá el identificador a través de un formulario. Esta petición será recogida 
-por el manejador de Django será procesada por un método asociada a la url, dentro de 
-este método se llamará a los plugins de \texttt{Hairball} recogiendo los datos parametrizados en
-el modelo de datos para su almacenamiento, y se responderá renderizando el contenido
-en un template.
+con el modelo cliente-servidor. El usuario a través de un navegador o dispositivo móvil
+subirá su proyecto a la platoforma a través de un formulario creado para ello. Esta 
+petición será recogida por el manejador de Django. Django procesará la petición, recogiendo
+la url y asociándola con un método desarrollado dentro de un fichero. En este método
+se llamará a los plugins de \texttt{Hairball}, obteniendo los datos necesarios con el
+objetivo de parametrizarlos de acuerdo  al modelo de datos definido para su correcto 
+almacenamiento y su posterior extracción. La petición se responderá renderizando 
+el contenido en un template desarrollado por Bootstrap. \\
+
+
+La siguiente figura representa la arquitectura de la plataforma. Como se puede observar
+sobresalen dos componentes, cliente y servidor. El servidor está formado por Django,
+la base de datos y \texttt{Hairball}, mientras en la parte del cliente el desarrollo
+se hace a través de Bootstrap. Cabe recordar que no existe una aplicación móvil, 
+pero gracias a la funcionalidad responsive de Bootstrap, el usuario puede 
+navegar por Dr. Scratch sin pérdida de la calidad en la presentación. \\
+
+
+\begin{figure}
+  \centering
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{arquitecturascratch.png}
+	\caption{Arquitectura de la plataforma Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
+Se describe cada componente de Dr. Scratch.
 
 \begin{itemize}
   \item Servidor. Se basa principalmente en Django. Django permite la abstracción de la
@@ -434,9 +477,9 @@ en un template.
   \item Cliente. Generalmente el acceso a la plataforma se hace mediante un navegador. El
 	desarrollo de la parte Front End se realiza conjuntamente con Django y Bootstrap, este
 	último permite una funcionalidad responsive lo que permite que el acceso a Dr. Scratch
-	puede hacerse por un dispositivo móvil o tablet, sin la pérdida del diseño original.
-	
+	puede hacerse por un dispositivo móvil o tablet, sin la pérdida del diseño original. 
 \end{itemize}
+
 
 
 \section{Diseño e implementación del servidor}
@@ -534,6 +577,7 @@ Para usar el plugin DuplicateScripts se hace la siguiente llamada.
 \begin{verbatim}
 hairball -p duplicate.DuplicateScripts test-project.sb2 
 test-project.sb2
+test-project.sb2
 1 duplicate scripts found
 ['when @greenFlag clicked', 'forever', 'if s then s else s',
 'hide', 's = s', 'backdrop name']
@@ -630,6 +674,7 @@ Dentro del paquete \emph{os} se utiliza la función \emph{read} de la clase \emp
 A esta función se le pasa una variable tipo String con la correspondiente llamada al 
 plugin de Hairball. Volviendo al ejemplo con el plugin Mastery se utiliza la función 
 tal que: \\
+
 \begingroup
 \fontsize{7pt}{8pt}\selectfont
 \begin{verbatim}
@@ -656,6 +701,56 @@ el punto de vista de la metodologia de uso. Así pues, para el proyecto se const
 además de \emph{procMastery}, los \emph{procs}, \emph{procDuplicateScript}, 
 \emph{procSpriteNaming}, \emph{procDeadCode}, \emph{procInitialization} que son usados
 para cubrir la captura de datos de los otros plugins.
+
+En este punto, se ha explicado como los \emph{procs} funcionan para capturar los datos
+de los plugins, pero será otro método el que llame a estos \emph{procs}. Este método 
+será \emph{analyzeProject}.
+
+\begingroup
+\fontsize{7pt}{8pt}\selectfont
+\begin{verbatim}
+
+def analyzeProject(request,file_name):
+    dictionary = {}
+    if os.path.exists(file_name):
+        list_file = file_name.split('(')
+        if len(list_file) > 1:
+            file_name = list_file[0] + '\(' + list_file[1]
+            list_file = file_name.split(')')
+            file_name = list_file[0] + '\)' + list_file[1]
+        #Request to hairball
+        metricMastery = "hairball -p mastery.Mastery " + file_name
+        metricDuplicateScript = "hairball -p \
+                                duplicate.DuplicateScripts " + file_name
+        metricSpriteNaming = "hairball -p convention.SpriteNaming " + file_name
+        metricDeadCode = "hairball -p blocks.DeadCode " + file_name 
+        metricInitialization = "hairball -p \
+                           initialization.AttributeInitialization " + file_name
+
+        #Response from hairball
+        resultMastery = os.popen(metricMastery).read()
+        resultDuplicateScript = os.popen(metricDuplicateScript).read()
+        resultSpriteNaming = os.popen(metricSpriteNaming).read()
+        resultDeadCode = os.popen(metricDeadCode).read()
+        resultInitialization = os.popen(metricInitialization).read()
+        
+				#Create a dictionary with necessary information
+        dictionary.update(procMastery(request,resultMastery))
+        dictionary.update(procDuplicateScript(resultDuplicateScript))
+        dictionary.update(procSpriteNaming(resultSpriteNaming))
+        dictionary.update(procDeadCode(resultDeadCode))
+        dictionary.update(procInitialization(resultInitialization))
+        
+				#Return a dictionary
+				return dictionary
+    else:
+        return HttpResponseRedirect('/')
+
+\end{verbatim}
+\endgroup
+
+En este método se crea una variable diccionario, denominado dictionary, que almacena
+toda la información recogida por los diccionarios generados por \emph{procs}. 
 
 
 \subsection{Modelo de datos}
@@ -685,7 +780,7 @@ explica las conexiones de cada una de las estructuras.
  \end{figure}
 
 
-Como se puede observar en la figura 4.1, la principal tabla en el modelo de datos
+Como se puede observar en la figura 4.2, la principal tabla en el modelo de datos
 es Project. La tabla Project almacena el nombre del proyecto, la puntuación obtenido
 según se la descripción anterior, el nivel obtenido tras el análisis, la fecha en
 que se analizó, la versión del proyecto analizado con vistas a hacer un seguimiento
@@ -745,12 +840,108 @@ con las siguiente imagen:
  \begin{figure}
 		\graphicspath{{img/}}
     \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{puntuacion.png}
-		\caption{Página inicial de Dr. Scratch}
+		\caption{Puntuación de proyecto obtenindo en Dr. Scratch}
     \label{figura:foro_hilos}
  \end{figure} 
 
 En esta imagen se puede apreciar la puntuación obtenida después del análisis dentro
-de Dr. Scratch
+de Dr. Scratch. Además, se asigna el nivel de expertise obtenido tras el análisis.
+Esta información es obtenido de base de datos, concretamente de la tabla Mastery que
+guarda estos datos. \\
+
+Además, en esta página se representa la información del plugin Mastery. Se detalla
+en una tabla los valores obtenidos en cada una de las habilidades pensamiento
+computacional: Sincronización, flujo de control, paralelización, abstracción,
+interacción con el usuario y lógica. Como se puede apreciar en la figura 4.5, las
+puntuaciones no exceden el límite de 3. 
+
+\begin{figure}
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{scoring.png}
+	\caption{Puntuaciones en habilidades pensamiento computacional para un proyecto}
+  \label{figura:foro_hilos}
+\end{figure}
+
+
+En esta misma página se muestra además los datos recogidos en base de datos por los
+otros plugins, \emph{DuplicateScripts}, \emph{SpriteNaming}, \emph{DeadCode} y 
+\emph{AttributeInitialization}.\\ 
+
+Para el plugin \emph{DuplicateScripts} se muestra el número de programas repetidos, sin 
+ninguna información agregada. Para \emph{SpriteNaming} se lista los personajes que usan
+su nombre por defecto y se muestra la suma de estos personajes. 
+Para el plugin \emph{DeadCode} se muestra el nombre del personaje y dentro de éste el 
+número de bloques que no se llegan a ejecutar
+Para \emph{AttributeInitialization} se muestra el personaje y dentro de este las 
+propiedades que no cumplen con su correcta inicialización. \\
+
+El componente principal de Bootstrap usado en esta página es \emph{Thumbnails}. Este
+componente permite crear de manera sencilla display grids, \emph{cajas}, y dentro de
+estas se puedan colocar imágenes, vídeos y texto. En nuestro caso lo usamos para
+colocar los datos referentes a los plugins que se han mencionado anteriormente. \\ 
+
+ \begin{figure}
+		\graphicspath{{img/}}
+    \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{plugins.png}
+		\caption{Datos de plugins de Hairball en Dr. Scratch}
+    \label{figura:foro_hilos}
+ \end{figure} 
+
+Esta información mostrada en las imágenes adjuntas es para un usuario no registrado.
+Para un usuario registrado es posible otorgarle más funcionalidades. Dentro de las
+primeras versiones de Dr. Scratch el usuario registrado tiene un dashboard o cuadro
+de mandos donde puede tener una visión rápida de todos los proyectos analizados y de
+sus respectivos niveles y puntuaciones. \\
+
+Este cuadro de mandos se puede observar en la figura yy y consta de tres contenedores
+principales. En la parte izquierda, el usuario registrado tiene tres enlaces: Dashboard,
+Projects y Rules. Cada enlace lleva al usuario a distintas páginas que se mostrará en
+lo sucesivo. \\
+
+La página Dashboard se corresponde con la Figura 4.7. Aquí, el usuario de 
+Dr. Scratch puede tener visibilidad de todos sus proyectos analizados dentro de la 
+plataforma. Tiene tres bloques, el primero es un gráfico estadístico que obtiene de 
+base de datos todos los proyectos y los categoriza por el nivel obtenido tras el 
+análisis con la herramienta. El siguiente bloque muestra la actividad del usuario 
+dentro de Dr. Scratch, ordenando esta actividad cronológicamente. Las actividades
+pueden ser subir proyectos nuevos a la plataforma, actualizar un proyecto ya 
+existente o realizar un comentario. El último bloque que se puede apreciar es donde
+el usuario puede subir el proyecto Scratch a analizar, este bloque es casi 
+idéntico al que tiene un usuario no registrado que pretende usar la herramienta 
+para analizar sus proyectos Scratch. \\ 
+
+\begin{figure}
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{dashboardprincipal.png}
+	\caption{Cuadro de mandos para usuario registrado en Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
+Como se describió antes, en la parte izquierda de la página de usuario registrado 
+existen tres enlaces. Previamente, se ha descrito el enlace Dashboard. Si el usuario
+selecciona el enlace Projects acceda a la Figura 4.8. En esta página se podrá 
+consultar todos los proyectos analizados por el usuario. Los proyectos son representados
+con el nombre de cada proyecto junto a su calificación correspondiente.
+
+
+\begin{figure}
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{proyectos.png}
+	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
+
+El último enlace del panel izquierdo es \emph{Rules} que es una página que muestra
+las reglas estipuladas para la adjudicación del nivel en Dr. Scratch.
+
+\begin{figure}
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{niveles.png}
+	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -927,15 +1118,32 @@ y muchas otras que pueden ser optimizadas.
 \cleardoublepage
 \appendix
 
-\chapter{Manual de uso de Dr. Scratch}
-Para poder usar la plataforma Dr. Scratch simplemente se debe acceder a la url
-drscratch.programamos.es.
-Cuando accedes a la web podrás observar un formulario en la parte izquierda. En
-este formulario podrás introducir el identificador de tu proyecto Scratch o poder
-subir tu proyecto con extensión sb2 para su análisis dentro de Dr. Scratch.
+\chapter{Manual de instalación y uso de Hairball}
+\texttt{Hairball} es un framework desarrollado por la universidad de Santa
+Barbara en Estados Unidos. Las librerías pueden ser encontrados en la red,
+y en concreto en la plataforma Github. \footnote{\url{github.com/ucsb-cs-education/hairball}}.
+\texttt{Hairball} funciona y ejecuta sobre consola, y lo más fácil para su
+correcto funcionamiento es utilizarlo sobre distribuciones Linux. También 
+podría ser usado en otros sistemas operativos, pero en este anexo solo se
+describe como usarlo en distribuciones Linux. 
 
-¿Cómo obtengo el identificador de mi proyecto Scratch?
-Simplemente debes ac
+Para su instalación se puede usar la herramiente \emph{pip}. Esta herramienta
+requiere que Python esté configurado correctamente en el sistema operativo.
+Comprobada la correcta configuración de Python se puede instalar \texttt{Hairball}
+de manera fácil, usando la sentencia:
+
+\begin{center}
+pip install hairball
+\end{center}
+
+
+Una vez instalado, el modo en como se ejecuta hairball se muestra a continuación. 
+Los plugins disponibles en hairball son : blocks.BlockCounts, blocks.DeadCode, 
+checks.Animation, checks.BroadcastReceive, checks.SaySoundSync,
+duplicate.DuplicateScripts, initialization.AttributeInitialization.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -946,7 +1154,7 @@ Simplemente debes ac
 
 % Las siguientes dos instrucciones es todo lo que necesitas
 % para incluir las citas en la memoria
-\bibliographystyle{abbrv}
+\bibliographystyle{unsrt}
 \bibliography{memoria}  % memoria.bib es el nombre del fichero que contiene
 % las referencias bibliográficas. Abre ese fichero y mira el formato que tiene,
 % que se conoce como BibTeX. Hay muchos sitios que exportan referencias en
@@ -954,6 +1162,8 @@ Simplemente debes ac
 % y verás que lo puedes hacer de manera sencilla.
 % Más información: 
 % http://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/
+
+
 
 
 \end{document}
