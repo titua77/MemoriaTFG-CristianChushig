@@ -384,15 +384,9 @@ Scratch cuenta con alrededor de 9 millones proyectos almacenados en sus servidor
 Estados Unidos de América y Reino Unidom, y entre edades, los niños que más usan Scratch
 son los que tienen una media de 13 años.  \\
 
-Scratch cuenta con alrededor de 9 millones proyectos almacenados en sus servidores, casi
-7 millones de usuarios registrados. Los mayores consumidores de Scratch en el mundo son 
-Estados Unidos de América y Reino Unidom, y entre edades, los niños que más usan Scratch
-son los que tienen una media de 13 años.  \\
-
-Scratch cuenta con alrededor de 9 millones proyectos almacenados en sus servidores, casi
-7 millones de usuarios registrados. Los mayores consumidores de Scratch en el mundo son 
-Estados Unidos de América y Reino Unidom, y entre edades, los niños que más usan Scratch
-son los que tienen una media de 13 años.  \\
+La parte visual, construida por los bloques permite una adaptación más rápida de los niños
+con el entorno de programación. Este tipo de enfoque se puede comparar con piezas de puzzle
+que tienen que ir encajando para obtener una solución. 
 
 
 \section{Hairball}
@@ -520,7 +514,17 @@ bootstrap/
 \endgroup
 
 Este conjunto de archivos es la manera más sencilla de utilizar Bootstrap en la mayoría 
-de proyecto web.
+de proyecto web. A continuación se presenta algunas características más específicas 
+de Bootstrap que hacen que sea tan popular entre diseñadores y programadores web:
+
+\begin{itemize}
+  \item Posee soporte para los preprocesadores Less y Sass.
+	\item Posee una documentación muy detallada y abundante.
+	\item Permite la utilización de JQuery.
+	\item Se integra con librerías Javascript.
+	\item Incluye grid system, utilidad para maquetar por columnas.
+	
+\end{itemize}
 
 
 \section{AJAX}
@@ -904,6 +908,78 @@ def procDeadCode(lines):
 \end{verbatim}
 \endgroup
 
+El \emph{proc} que se corresponde con el plugin SpriteNaming es procSpriteNaming. 
+Este método almacena los nombres de los personajes a los que el usuario no 
+cambio el valor por defecto,
+\begingroup
+\fontsize{8pt}{9pt}\selectfont
+\begin{verbatim}
+def procSpriteNaming(lines):
+    """Return the number of default spring"""
+    dic = {}
+    lLines = lines.split('\n')
+    number = lLines[1].split(' ')[0]
+    lObjects = lLines[2:]
+    lfinal = lObjects[:-1]
+    dic['spriteNaming'] = dic
+    dic['spriteNaming']['number'] = str(number)
+    dic['spriteNaming']['sprite'] = lfinal
+    return dic
+\end{verbatim}
+\endgroup
+
+El \emph{proc} que se corresponde con el plugin AttributeInitialization es 
+procInitialization. Es el método más complejo, ya que tiene procesar y 
+buscar las propiedades de cada personaje, y compararlo con el valor que 
+se parametriza como un error.
+
+\begingroup
+\fontsize{8pt}{9pt}\selectfont
+\begin{verbatim}
+
+def procInitialization(lines):
+    """Initialization"""
+    dic = {}
+    lLines = lines.split('.sb2')
+    d = ast.literal_eval(lLines[1])
+    keys = d.keys()
+    values = d.values()
+    items = d.items()
+    number = 0
+    
+    for keys, values in items:
+        list = []
+        attribute = ""
+        internalkeys = values.keys()
+        internalvalues = values.values()
+        internalitems = values.items()
+        flag = False
+        counterFlag = False
+        i = 0
+        for internalkeys, internalvalues in internalitems:
+            if internalvalues == 1:
+                counterFlag = True
+                for value in list:
+                    if internalvalues == value:
+                        flag = True
+                if not flag:
+                    list.append(internalkeys)
+                    if len(list) < 2:
+                        attribute = str(internalkeys)
+                    else:
+                        attribute = attribute + ", " + str(internalkeys)
+        if counterFlag:
+            number = number + 1
+        d[keys] = attribute      
+    dic["initialization"] = d
+    dic["initialization"]["number"] = number
+
+    return dic
+\end{verbatim}
+\endgroup
+
+
+
 De este modo, Dr. Scratch transforma las salidas de los plugins a través de \emph{procs}. 
 Pero, para poder acceder al sistema operativo desde Django se usa en el proyecto la
 librería \emph{os} de Python. La librería \emph{os} permite hacer llamadas de sistema y
@@ -1000,14 +1076,14 @@ El modelo de datos tiene como objetivo adecuarse a las salidas de consola de
 las salidas de los plugins y como mediante los \emph{procs}, parsers, estos son tratados.
 Cabe recordar, que las salidas de estos \emph{procs} son diccionarios. En este capítulo
 se detalla el procedimiento de almacenamiento, además de la configuración del sistema de 
-base de datos en este proyecto SQlite. \\ 
+base de datos en este proyecto SQlite. 
 
 Una de las principales ventajas de Django es que la conexión con los sistemas de bases
 de datos es transparente para el usuario. Simplemente se debe realizar la respectiva 
 configuración en el fichero settings.py de la base de datos. Para este proyecto se uso
 en primera instancia SQlite, y después se migró a Azure, trabajo realizado por otros 
 participantes dentro la iniciativa Dr. Scratch. En este proyecto se limitará la 
-descripción con SQLite. \\ \\ \\
+descripción con SQLite. \\  
  
 Para el entendimiento de los datos dentro de Dr. Scratch se presenta un modelo que 
 explica las conexiones de cada una de las estructuras. Como se puede observar en la 
@@ -1031,7 +1107,7 @@ Como se menciona al inicio del capítulo, cada tabla trata de corresponderse con
 plugins de \texttt{Hairball}. Para el plugin Mastery, se tiene la tabla Mastery, en
 la se almacena las puntuaciones referentes a las habilidades de pensamiento 
 computacional obtenidos, y además la puntuación obtenida para el proyecto. Estos 
-valores son de tipo entero.
+valores son de tipo entero. \\
 
 La tabla Attribute guarda las propiedades del personaje que presentan un error en su 
 inicialización. Así pues, se parametriza las propiedades generales de los personajes,
@@ -1113,7 +1189,7 @@ funcionalidad de thumbnails. \\
 
  \begin{figure}
 		\graphicspath{{img/}}
-    \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{portada.png}
+    \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{portada.png}
 		\caption{Página inicial de Dr. Scratch}
     \label{figura:foro_hilos}
  \end{figure} 
@@ -1123,7 +1199,7 @@ versiones de portada, pero engloba los componentes de Bootstrap principales
 usadas en las siguientes versiones. Como se puede observar en la imagen existe la 
 posibilidad de que un usuario acceda con su cuenta dentro de la plataforma, esta
 funcionalidad también es cubierta con Django, que provee herramientas para la 
-gestión de usuarios y sesiones dentro del desarrollo de sus aplicaciones. \\ \\ \\ \\
+gestión de usuarios y sesiones dentro del desarrollo de sus aplicaciones. \\ \\ \\ \\ \\
 
 En la parte izquierda de la Figura 4.3 se puede apreciar un formulario desarrollado
 para que el usuario de la plataforma pueda subir su proyecto Scratch con extensión sb2
@@ -1139,11 +1215,11 @@ el nivel de expertise conseguido tras el análisis dentro de la plataforma. Esta
 información es el resultado del proceso que sigue Dr. Scratch, pasando el proyecto por
 Hairball, procesando las salidas de consola, almacenando la información y renderizando los
 datos de ciertas tablas del modelo de datos, concretamente en este página la de la tabla
-Mastery, encargada de gestionar información general de cada proyecto analizado. \\ \\ \\ \\
+Mastery, encargada de gestionar información general de cada proyecto analizado. \\ \\ 
 
  \begin{figure}
 		\graphicspath{{img/}}
-    \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{puntuacion.png}
+    \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{puntuacion.png}
 		\caption{Puntuación de proyecto obtenindo en Dr. Scratch}
     \label{figura:foro_hilos}
  \end{figure} 
@@ -1158,7 +1234,7 @@ mantenido a lo largo del ciclo de vida de Dr. Scratch. \\
 
 \begin{figure}[h]
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=10cm, keepaspectratio]{scoring.png}
+  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{scoring.png}
 	\caption{Puntuaciones en habilidades pensamiento computacional para un proyecto}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1167,7 +1243,7 @@ mantenido a lo largo del ciclo de vida de Dr. Scratch. \\
 Si se sigue el análisis de los resultados renderizados en esta misma página, además de 
 lo referenciado anteriormente, se muestra los datos almacenados por las distintas tablas
 la base de datos.  Los datos referidos a los plugins, \emph{DuplicateScripts}, 
-\emph{SpriteNaming}, \emph{DeadCode} y \emph{AttributeInitialization}. Figura 4.6. \\
+\emph{SpriteNaming}, \emph{DeadCode} y \emph{AttributeInitialization}. Figura 4.6. \\ \\ \\
 
 Para el plugin \emph{DuplicateScripts} se muestra el número de programas repetidos, sin 
 ninguna información agregada. Para \emph{SpriteNaming} se lista los personajes que usan
@@ -1180,7 +1256,7 @@ propiedades que no cumplen con su correcta inicialización. \\
 El componente principal de Bootstrap usado en esta página es \emph{Thumbnails}. Este
 componente permite crear de manera sencilla display grids, \emph{cajas}, y dentro de
 estas se puedan colocar imágenes, vídeos y texto. En nuestro caso lo usamos para
-colocar los datos referentes a los plugins que se han mencionado anteriormente. \\ 
+colocar los datos referentes a los plugins que se han mencionado anteriormente. 
 
  \begin{figure}
 		\graphicspath{{img/}}
@@ -1209,23 +1285,26 @@ Dr. Scratch tiene la posibilidad de tener una visión más general de todos sus 
 analizados almacenados dentro de la plataforma. Este cuadro de mandos está formado por
 tres bloques principales. El primer bloque es un gráfico estadístico que obtiene de 
 base de datos todos los proyectos y los categoriza por el nivel obtenido tras el 
-análisis con la herramienta, es decir, básico, desarrollo o profesional. El siguiente
-bloque es el encargado de mostrar toda la actividad del usuario dentro de Dr. Scratch.
+análisis con la herramienta, es decir, básico, desarrollo o profesional. \\ \\ \\
+
+El siguiente bloque es el encargado de mostrar toda la actividad del usuario dentro de Dr. Scratch.
 Ordena esta actividad cronológicamente y estas actividades pueden ser subir proyectos 
 nuevos a la plataforma, actualizar un proyecto ya existente o realizar un comentario sobre
-otros usuarios registrados dentro la plataforma. El último bloque que se puede apreciar es
-donde el usuario tiene habilitado un formulario para subir el proyecto Scratch que quiere
-ser analizado. Este bloque es casi idéntico al que tiene un usuario no registrado que 
-pretende usar la herramienta para analizar sus proyectos Scratch. \\ 
+otros usuarios registrados dentro la plataforma. \\
+
+El último bloque que se puede apreciar es donde el usuario tiene habilitado un formulario 
+para subir el proyecto Scratch que quiere ser analizado. Este bloque es casi idéntico al 
+que tiene un usuario no registrado que  pretende usar la herramienta para analizar sus
+ proyectos Scratch. \\ 
 
 En el panel superior se tiene habilitado los enlaces para que el usuario pueda modificar
 propiedades de su cuenta, visualizar sus mensajes, ver alertas. Esto se corresponde con
 la primera versión de plantilla Bootstrap, y la lógica está pendiente como futuras tareas
-de desarrollo. \\ \\
+de desarrollo. \\ \\ \\
 
 \begin{figure}
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{dashboardprincipal.png}
+  \includegraphics[bb=0 0 800 600, width=13cm, keepaspectratio]{dashboardprincipal.png}
 	\caption{Cuadro de mandos para usuario registrado en Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1243,12 +1322,12 @@ toda la información extraída de los plugins. Esta página será idéntica a la
 usuario no registrado. En futuros desarrollos se tiene como objetivo que la página que muestra
 las salidas de \texttt{Hairball} también pueda sugerir como mejorar su progresión dentro de la
 plataforma. Este desarrollo también será llevado a cabo por el equipo Dr. Scratch en versiones
-superiores de la aplicación. \\ \\ \\ 
+superiores de la aplicación.  \\ \\ 
 
 
 \begin{figure}
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{proyectos.png}
+  \includegraphics[bb=0 0 800 600, width=13cm, keepaspectratio]{proyectos.png}
 	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1273,7 +1352,7 @@ de seguimiento del proceso y la integración del componente de red social. \\ \\
 
 \begin{figure}
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=11cm, keepaspectratio]{niveles.png}
+  \includegraphics[bb=0 0 800 600, width=13cm, keepaspectratio]{niveles.png}
 	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1512,10 +1591,17 @@ los componentes de un proyecto Scratch, simplemente conociendo el identificador 
 proyecto asignado por la plataforma de Scratch. Esta herramienta recibe el nombre de
 getSb2, y como su nombre indica obtiene un proyecto con formato sb2. \\
 
-Esta herramienta está desarrollada sobre NodeJS, y en un principio hacíamos uso del
-servicio, ya que estaba disponible siempre. Pero, valorando las limitaciones
+Esta herramienta está desarrollada sobre NodeJS, y en un principio se hacía uso del
+servicio, ya que estaba disponible siempre en la red. Pero, valorando las limitaciones
 de la herramienta en términos de conexiones que es capaz de soportar simultáneamente, 
-se optó por hacer una réplica y almacenar una copia dentro de Azure.
+se optó por hacer una réplica y almacenar una copia dentro de Azure. \\
+
+En el transcurso del proyecto también se decidió hacer una plataforma multilenguaje. 
+Para ello, se usó la funcionalidad que proporciona Django para hacer traducciones. 
+Esta fase de la iniciativa la desarrolló el equipo de Dr. Scratch. Hubo algunos
+inconvenientes, pero se logró mantener una versión en inglés y otra en español, de
+acuerdo a la configuración de navegador que se esté usando durante la sesión en la
+plataforma. \\ \\
 
 
 \begin{figure}
@@ -1525,9 +1611,32 @@ se optó por hacer una réplica y almacenar una copia dentro de Azure.
   \label{figura:foro_hilos}
 \end{figure}
 
+Dentro de las funcionalidades que están en progreso, está las cuentas de los profesores.
+Una buena idea para que los profesores puedan usar la herramienta junto a sus alumnos
+es proporcionar una interfaz en la que pueda crear classrooms. Los alumnos pueden 
+suscribirse a estos grupos para poder participar del reto que envía el profesor.
+Los alumnos suben sus proyectos que solucionan el reto lanzado, y el profesor puede 
+corregir de manera rápida los proyectos. \\
+
+Además, se tiene en mente que el profesor tenga un cuadro de mandos, en la que pueda
+valorar qué alumnos necesitan más ayuda que otros. Esta nueva funcionalidad se mezclaría
+con un trabajo futuro del seguimiento del proceso del usuario.
+
+
 \begin{figure}
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{nuevasfuncionalidades.png}
+  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{nuevasfuncionalidades.png}
+	\caption{Herramienta para gestión de tareas en Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
+Por último se deja otra captura de la última versión de Dr. Scratch, Figura 5.4. Aquí,
+puede verse un vídeo demostrando como usar la plataforma y está orientada a un público 
+más general.
+
+\begin{figure}
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{comofunciona.png}
 	\caption{Herramienta para gestión de tareas en Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
