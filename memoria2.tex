@@ -1283,10 +1283,134 @@ de seguimiento del proceso y la integración del componente de red social. \\ \\
 \label{sec:servidor}
 
 Uno de los detalles más importantes dentro de las aplicaciones web es la facilidad de 
-uso para los usuarios. Desde la iniciativa Dr. Scratch se valo
+uso para los usuarios. Desde la iniciativa Dr. Scratch se valoró crear plugins para
+los navegadores más usados: Chrome y Firefox. \\
+
+Para Chrome existen librerías para el desarrollo de extensiones, equivalente de plugin
+en Firefox, se investigó la manera de interactuar con los componentes que ofrecían
+las librerías de Chrome y tienen mucha correlación con Firefox. Pero, en el punto
+de entrega de este proyecto no se llegó a implementar una solución, pese a la
+investigación y pruebas realizadas. \\
+
+En Firefox la facilidad que te otorga el SDK hace que el desarrollo de plugins sea 
+sencillo y rápido de hacer. En principio las librerías vienen comprimidas en un
+fichero tar.gz. Para descomprimir se puede usar el comando bash tar -xf addon-sdk.tar.gz.
+Una vez hecha la descompresión, vamos al directorio y ejecutamos source bin/activate.
+Esto crea un nuevo prompt adaptado para el desarrollo de plugins.\\ \\
+
+Para crer una app nueva, o plugin nuevo se sigue la siguiente ejecución de comandos:
+\begingroup
+\fontsize{8pt}{9pt}\selectfont
+\begin{verbatim}
+mkdir my-addon
+cd my-addon
+cfx init
+\end{verbatim}
+\endgroup
+
+Siendo my-addon el nombre del plugin. En el caso del plugin de Dr. Scratch el nombre
+recibido es drscratch-tool. Cuando se ejecuta cfx init se genera un nuevo directorio
+con la siguiente estructura de ficheros:
+\begingroup
+\fontsize{8pt}{9pt}\selectfont
+\begin{verbatim}
+|--data
+|   |--css
+|   |--js
+|   |--icon32.jpg
+|--lib
+|   |--main.js
+|--test
+|   |--test-main.js
+|--package.json
+\end{verbatim}
+\endgroup
+
+En el fichero json se especifica el nombre que tendrá el plugin, así como una 
+descripción, versión y tipo de licencia. La estructura del fichero json es: \\
+
+\begingroup
+\fontsize{8pt}{9pt}\selectfont
+\begin{verbatim}
+{
+  "name": "drscratch-tool",
+  "title": "drscratch-tool",
+  "id": "jid1-sALq5AVB1uk6GQ",
+  "description": "a basic add-on",
+  "author": "",
+  "license": "MPL 2.0",
+  "version": "0.1"
+}
+\end{verbatim}
+\endgroup
+
+El fichero donde escribimos la lógica de la aplicación será main.js. Para el desarrollo
+del plugin se ha utilizado varios paquetes del SDK. Por ejemplo, para crear un panel
+se usa el paquete panel, para el control de las pestañas del navegador se usa el 
+paquete tabs. Pero, el paquete más importante es request, que proporciona la 
+funcionalidad de realizar peticiones mediante AJAX a cualquier servidor, en este caso
+el servidor de Dr. Scratch. \\
+\begingroup
+\fontsize{8pt}{9pt}\selectfont
+\begin{verbatim}
+// Panel
+var data = require("sdk/self").data;
+var panel = require("sdk/panel").Panel({
+	contentURL: data.url("text-entry.html"),
+	width: 500,
+	height: 300,
+	contentStyleFile: data.url("css/drscratch.css"),
+  contentScriptFile: [
+        data.url("js/jquery-2.1.3.min.js"),
+        data.url("get-text.js"), 
+  ]
+});
+
+// Get the active tab url
+var tabs = require("sdk/tabs");
+
+// Create request to DrScratch
+var Request = require("sdk/request").Request;
+
+// Create a button
+require("sdk/ui/button/action").ActionButton({
+	id: "show-panel",
+	label: "Show Panel",
+	icon: {
+		"16": "./icon-16.png",
+		"32": "./icon-32.png"
+	},
+    onClick: handleClick
+});
 
 
+function handleClick(state){
+	var url = tabs.activeTab.url;
+	var lurl = url.split("/");
+	var idproject = lurl[4];
+	var url4scratch = "http://localhost:1234/pluginAnalysis/" + idproject;
+	var doctor = Request({
+	url: url4scratch,
+	onComplete: function (response) {
+		var gresponse = response.text;
+		panel.port.emit("gresponse", gresponse);
+		console.log("estoy en request##");
+		}
+	});
+	doctor.get();
+	panel.show();
+}
 
+panel.on("show", function() {
+panel.port.emit("show");
+});
+\end{verbatim}
+\endgroup
+
+Mencionar que el idProject es recogido mediante la funcionalidad del paquete tabs
+que recoge la url de la tab activa. Una vez obtenida se parsea hasta conseguir
+el identificador del proyecto Scratch. Esta petición será recogido por el servidor 
+Django, y procesada por un método que procesa peticiones AJAX. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
