@@ -25,13 +25,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel} % Comenta esta línea si tu memoria es en inglés
 \usepackage{url}
-%\usepackage[dvipdfm]{graphicx}
+\usepackage[dvipdfm]{graphicx}
 \usepackage{graphicx}
 %\usepackage[utf8]{inputenc}
 \usepackage{float}  %% H para posicionar figuras
 \usepackage[nottoc, notlot, notlof, notindex]{tocbibind} %% Opciones de índice
 \usepackage{latexsym}  %% Logo LaTeX
-\usepackage{cite}
+%\usepackage{cite}
+\usepackage{url}
 
 \title{Dr.Scratch Herramienta de análisis automático de proyectos Scratch}
 \author{Cristian David Chushig Muzo}
@@ -49,8 +50,8 @@
 \begin{titlepage}
 \begin{center}
 \begin{tabular}[c]{c c}
-%\includegraphics[bb=0 0 194 352, scale=0.25]{logo_vect} &
-%\includegraphics[scale=0.25]{logo_vect} &
+\includegraphics[bb=0 0 194 352, scale=0.25]{logo_vect.png} &
+%\includegraphics[scale=0.25]{logo_vect.png} &
 \begin{tabular}[b]{l}
 \Huge
 \textsf{UNIVERSIDAD} \\
@@ -620,7 +621,7 @@ navegar por Dr. Scratch sin pérdida de la calidad en la presentación. \\
 \begin{figure}
   \centering
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{arquitecturascratch.png}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=9cm, keepaspectratio]{arquitecturascratch.png}
 	\caption{Arquitectura de la plataforma Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
@@ -669,7 +670,7 @@ estrechamente relacionado con los ficheros urls.py y models.py.
 \texttt{Hairball} provee la salida de datos a través de la consola. Para cada plugin de Hairball se 
 debe hacer una llamada a través de la consola. En esta sección se detalla con ejemplos las salidas 
 de cada uno de los plugins usados en Dr.Scratch, ya que esto contribuirá al entendimiento del modelo 
-de datos del proyecto. \\ \\ \\ \\
+de datos del proyecto. \\ \\ 
 
 Cada uno de los plugins se ejecutan a través de una consola bash y su modo de uso es el siguiente.
 
@@ -710,7 +711,7 @@ muerto, es decir, 6 bloques que no llegan a ejecutarse, y estos bloques pertenec
 En el estado del arte se describió que \texttt{Hairball} estaba desarrollado sobre Kurt, en la
 salida de este plugin se puede apreciar de que manera trabaja Kurt y sus ventajas. Otro valor
 que se almacenará en base de datos en versiones futuras de la plataforma será la información de 
-la posición asociada a los bloques que no se ejecutan en el flujo del programa. \\ \\ \\
+la posición asociada a los bloques que no se ejecutan en el flujo del programa. \\ 
 
 Para el uso del plugin AttributeInitialization se presenta la siguiente salida:
 
@@ -760,7 +761,7 @@ Sprite3
 Este plugin busca los personajes del proyecto que han mantenido el nombre por defecto. En
 la salida se puede observar un listado de los nombres de esto personajes. Lo que se 
 almacenará dentro de la base de datos será el nombre por defecto que aparece en el listado
-de la salida del plugin. En el ejemplo anterior: Sprite2, Sprite8, Sprite1, Sprite4, Sprite3. \\ \\ \\
+de la salida del plugin. En el ejemplo anterior: Sprite2, Sprite8, Sprite1, Sprite4, Sprite3. \\  
 
 Para usar el plugin DuplicateScripts se hace la siguiente llamada.
 \begingroup
@@ -1076,7 +1077,7 @@ El modelo de datos tiene como objetivo adecuarse a las salidas de consola de
 las salidas de los plugins y como mediante los \emph{procs}, parsers, estos son tratados.
 Cabe recordar, que las salidas de estos \emph{procs} son diccionarios. En este capítulo
 se detalla el procedimiento de almacenamiento, además de la configuración del sistema de 
-base de datos en este proyecto SQlite. 
+base de datos en este proyecto SQlite. \\ 
 
 Una de las principales ventajas de Django es que la conexión con los sistemas de bases
 de datos es transparente para el usuario. Simplemente se debe realizar la respectiva 
@@ -1091,12 +1092,11 @@ Figura 4.2, la principal tabla en el modelo de datos es Project. La tabla Projec
 almacena el nombre del proyecto, la puntuación obtenido según se la descripción 
 anterior, el nivel obtenido tras el análisis, la fecha en que se analizó, la versión 
 del proyecto analizado con vistas a hacer un seguimiento de la progresión del 
-usuario de Dr. Scratch. \\
+usuario de Dr. Scratch. \\ \\
 
- \begin{figure}
-    \centering
+ \begin{figure}[h]
 		\graphicspath{{img/}}
-    \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{modelo.png}
+    \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{modelo.png}
     \caption{Representación del Modelo de Datos de Dr. Scratch}
     \label{figura:foro_hilos}
  \end{figure}
@@ -1107,7 +1107,7 @@ Como se menciona al inicio del capítulo, cada tabla trata de corresponderse con
 plugins de \texttt{Hairball}. Para el plugin Mastery, se tiene la tabla Mastery, en
 la se almacena las puntuaciones referentes a las habilidades de pensamiento 
 computacional obtenidos, y además la puntuación obtenida para el proyecto. Estos 
-valores son de tipo entero. \\
+valores son de tipo entero. \\ 
 
 La tabla Attribute guarda las propiedades del personaje que presentan un error en su 
 inicialización. Así pues, se parametriza las propiedades generales de los personajes,
@@ -1187,9 +1187,10 @@ buttons, sizing, navs, tabs, thumbnails, alerts. Por ejemplo, para la creación 
 portada, representada en la Figura 4.3, se utiliza como componente principal un navbar y la
 funcionalidad de thumbnails. \\
 
- \begin{figure}
+ \begin{figure}[h]
+		\centering
 		\graphicspath{{img/}}
-    \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{portada.png}
+    \includegraphics[bb=0 0 800 600, width=15cm, height=8cm, keepaspectratio]{portada.png}
 		\caption{Página inicial de Dr. Scratch}
     \label{figura:foro_hilos}
  \end{figure} 
@@ -1199,7 +1200,7 @@ versiones de portada, pero engloba los componentes de Bootstrap principales
 usadas en las siguientes versiones. Como se puede observar en la imagen existe la 
 posibilidad de que un usuario acceda con su cuenta dentro de la plataforma, esta
 funcionalidad también es cubierta con Django, que provee herramientas para la 
-gestión de usuarios y sesiones dentro del desarrollo de sus aplicaciones. \\ \\ \\ \\ \\
+gestión de usuarios y sesiones dentro del desarrollo de sus aplicaciones. \\ \\ 
 
 En la parte izquierda de la Figura 4.3 se puede apreciar un formulario desarrollado
 para que el usuario de la plataforma pueda subir su proyecto Scratch con extensión sb2
@@ -1215,14 +1216,17 @@ el nivel de expertise conseguido tras el análisis dentro de la plataforma. Esta
 información es el resultado del proceso que sigue Dr. Scratch, pasando el proyecto por
 Hairball, procesando las salidas de consola, almacenando la información y renderizando los
 datos de ciertas tablas del modelo de datos, concretamente en este página la de la tabla
-Mastery, encargada de gestionar información general de cada proyecto analizado. \\ \\ 
+Mastery, encargada de gestionar información general de cada proyecto analizado. 
 
- \begin{figure}
+
+ \begin{figure}[h]
+    \centering
 		\graphicspath{{img/}}
-    \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{puntuacion.png}
-		\caption{Puntuación de proyecto obtenindo en Dr. Scratch}
+    \includegraphics[bb=0 0 800 600, width=16cm, height=8cm, keepaspectratio]{puntuacion.png}
+		\caption{Puntuación de proyecto obtenido en Dr. Scratch}
     \label{figura:foro_hilos}
  \end{figure} 
+
 
 Además, en esta página se representa la información del plugin Mastery. Se detalla
 en una tabla los valores obtenidos en cada una de las habilidades pensamiento
@@ -1233,8 +1237,9 @@ el máximo de 21 puntos. Estos criterios se puntuación y asignación de nivel s
 mantenido a lo largo del ciclo de vida de Dr. Scratch. \\
 
 \begin{figure}[h]
+  \centering
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{scoring.png}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=8cm, keepaspectratio]{scoring.png}
 	\caption{Puntuaciones en habilidades pensamiento computacional para un proyecto}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1243,7 +1248,7 @@ mantenido a lo largo del ciclo de vida de Dr. Scratch. \\
 Si se sigue el análisis de los resultados renderizados en esta misma página, además de 
 lo referenciado anteriormente, se muestra los datos almacenados por las distintas tablas
 la base de datos.  Los datos referidos a los plugins, \emph{DuplicateScripts}, 
-\emph{SpriteNaming}, \emph{DeadCode} y \emph{AttributeInitialization}. Figura 4.6. \\ \\ \\
+\emph{SpriteNaming}, \emph{DeadCode} y \emph{AttributeInitialization}. Figura 4.5. \\
 
 Para el plugin \emph{DuplicateScripts} se muestra el número de programas repetidos, sin 
 ninguna información agregada. Para \emph{SpriteNaming} se lista los personajes que usan
@@ -1251,19 +1256,21 @@ su nombre por defecto y se muestra la suma de estos personajes.
 Para el plugin \emph{DeadCode} se muestra el nombre del personaje y dentro de éste el 
 número de bloques que no se llegan a ejecutar
 Para \emph{AttributeInitialization} se muestra el personaje y dentro de este las 
-propiedades que no cumplen con su correcta inicialización. \\
+propiedades que no cumplen con su correcta inicialización.
+
+ \begin{figure}[h]
+	  \centering
+		\graphicspath{{img/}}
+    \includegraphics[bb=0 0 800 600, width=18cm, height=7cm, keepaspectratio]{plugins.png}
+		\caption{Datos de plugins de Hairball en Dr. Scratch}
+    \label{figura:foro_hilos}
+ \end{figure} 
+
 
 El componente principal de Bootstrap usado en esta página es \emph{Thumbnails}. Este
 componente permite crear de manera sencilla display grids, \emph{cajas}, y dentro de
 estas se puedan colocar imágenes, vídeos y texto. En nuestro caso lo usamos para
-colocar los datos referentes a los plugins que se han mencionado anteriormente. 
-
- \begin{figure}
-		\graphicspath{{img/}}
-    \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{plugins.png}
-		\caption{Datos de plugins de Hairball en Dr. Scratch}
-    \label{figura:foro_hilos}
- \end{figure} 
+colocar los datos referentes a los plugins que se han mencionado anteriormente.  \\
 
 Esta información mostrada en las imágenes adjuntas es para un usuario no registrado.
 Para un usuario registrado es posible otorgarle más funcionalidades. Dentro de las
@@ -1278,14 +1285,23 @@ Projects y Rules. Dashboard es el enlace que te permite acceder a los portles ge
 para la categorización de los proyectos. Projects es un enlace que te lleva a una 
 página donde se muestra cada uno de los proyectos del usuario, mostrando la puntuación
 obtenida. Por último, el enlace Rules te lleva a una página donde se describe los niveles
-dentro de Dr. Scratch, y como se puede alcanzar cada uno de ellos. \\
+dentro de Dr. Scratch, y como se puede alcanzar cada uno de ellos. \\ \\ \\
 
 La página Dashboard se corresponde con la Figura 4.7. En este punto, el usuario de 
 Dr. Scratch tiene la posibilidad de tener una visión más general de todos sus proyectos
 analizados almacenados dentro de la plataforma. Este cuadro de mandos está formado por
 tres bloques principales. El primer bloque es un gráfico estadístico que obtiene de 
 base de datos todos los proyectos y los categoriza por el nivel obtenido tras el 
-análisis con la herramienta, es decir, básico, desarrollo o profesional. \\ \\ \\
+análisis con la herramienta, es decir, básico, desarrollo o profesional. \\ 
+
+\begin{figure}[h]
+  \centering
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=9cm, keepaspectratio]{dashboardprincipal.png}
+	\caption{Cuadro de mandos para usuario registrado en Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
 
 El siguiente bloque es el encargado de mostrar toda la actividad del usuario dentro de Dr. Scratch.
 Ordena esta actividad cronológicamente y estas actividades pueden ser subir proyectos 
@@ -1300,18 +1316,21 @@ que tiene un usuario no registrado que  pretende usar la herramienta para analiz
 En el panel superior se tiene habilitado los enlaces para que el usuario pueda modificar
 propiedades de su cuenta, visualizar sus mensajes, ver alertas. Esto se corresponde con
 la primera versión de plantilla Bootstrap, y la lógica está pendiente como futuras tareas
-de desarrollo. \\ \\ \\
+de desarrollo. \\ 
 
-\begin{figure}
-	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=13cm, keepaspectratio]{dashboardprincipal.png}
-	\caption{Cuadro de mandos para usuario registrado en Dr. Scratch}
-  \label{figura:foro_hilos}
-\end{figure}
+
 
 Como se describió previamente, en la panel izquierdo de la página del usuario registrado 
 existen tres enlaces. El enlace Dashboard ha sido descrito haste el momento. Si el usuario
-selecciona el enlace Projects podrá acceder a la Figura 4.8.  \\
+selecciona el enlace Projects podrá acceder a la Figura 4.8.  
+
+\begin{figure} [h]
+  \centering
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=8cm, keepaspectratio]{proyectos.png}
+	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
 
 
 En esta página los paneles izquierdo y superior se mantienen iguales, y el que cambiará será
@@ -1325,14 +1344,6 @@ plataforma. Este desarrollo también será llevado a cabo por el equipo Dr. Scra
 superiores de la aplicación.  \\ \\ 
 
 
-\begin{figure}
-	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=13cm, keepaspectratio]{proyectos.png}
-	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
-  \label{figura:foro_hilos}
-\end{figure}
-
-
 El último enlace del panel izquierdo es \emph{Rules}. Rules es una página que muestra
 las reglas estipuladas para la adjudicación del nivel en Dr. Scratch. Como se menciona
 anteriormente, existen tres niveles dentro de Dr. Scratch: básico, en desarrollo y 
@@ -1340,22 +1351,21 @@ profesional. En un principio, los límites para saltar de nivel eran 10 para pas
 básico a desarrollo y 15 para superar desarrollo y conseguir el nivel profesional. Este
 aspecto es uno de los que ha variado en la versión actual de Dr. Scratch, actualmente
 un usuario de nivel básico está entre 0-7, mientras que un usuario en desarrollo se
-encuentra en el rango 7-15, y para los que superan el 15 el nivel será profesional. \\
+encuentra en el rango 7-15, y para los que superan el 15 el nivel será profesional.
+
+\begin{figure}[h]
+  \centering
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=8cm, keepaspectratio]{niveles.png}
+	\caption{Niveles dentro de Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
 
 Uno de los objetivos del proyecto es aplicar un seguimiento de la progresión del 
 usuario mientra usa la plataforma. El uso de niveles permite que el usuario se posicione
 y asuma el reto de superar niveles, y así conseguir mayor visibilidad dentro de Dr. 
 Scratch. Es una tarea pendiente el poder enlazar técnicas de ludificación, el mecanismo
 de seguimiento del proceso y la integración del componente de red social. \\ \\
-
-
-
-\begin{figure}
-	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=13cm, keepaspectratio]{niveles.png}
-	\caption{Listado de proyectos de un usuario registrado en Dr. Scratch}
-  \label{figura:foro_hilos}
-\end{figure}
 
 
 \section{Implementación de plugin firefox para Dr. Scratch}
@@ -1525,8 +1535,9 @@ cada espacio se encuentran tareas. Los espacios dentro de Dr. Scratch son Doing,
 Waiting an event y MidTerm.
 
 \begin{figure}
+	\centering
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{trello.png}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=9cm, keepaspectratio]{trello.png}
 	\caption{Herramienta para gestión de tareas en Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1581,6 +1592,14 @@ la red. Como se puede apreciar en la Figura 5.2, la presentación de Dr. Scratch
 adquirió un grado de calidad alto, pero sigue la misma estructura que tenía la primera
 versión de plantilla Bootstrap. \\
 
+\begin{figure}[h]
+	\centering
+	\graphicspath{{img/}}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=8cm, keepaspectratio]{drscratchactual.png}
+	\caption{Estado actual de Dr. Scratch}
+  \label{figura:foro_hilos}
+\end{figure}
+
 La creación de un formulario para poder subir el fichero se mantiene, añadido claro
 el \emph{Look and Feel} de la nueva plantilla. Pero aquí se añade un nuevo componente
 en el formulario, una entrada de texto, en el que el usuario puede introducir el 
@@ -1601,15 +1620,8 @@ Para ello, se usó la funcionalidad que proporciona Django para hacer traduccion
 Esta fase de la iniciativa la desarrolló el equipo de Dr. Scratch. Hubo algunos
 inconvenientes, pero se logró mantener una versión en inglés y otra en español, de
 acuerdo a la configuración de navegador que se esté usando durante la sesión en la
-plataforma. \\ \\
+plataforma. \\  \\ \\
 
-
-\begin{figure}
-	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=12cm, keepaspectratio]{drscratchactual.png}
-	\caption{Herramienta para gestión de tareas en Dr. Scratch}
-  \label{figura:foro_hilos}
-\end{figure}
 
 Dentro de las funcionalidades que están en progreso, está las cuentas de los profesores.
 Una buena idea para que los profesores puedan usar la herramienta junto a sus alumnos
@@ -1624,9 +1636,10 @@ con un trabajo futuro del seguimiento del proceso del usuario.
 
 
 \begin{figure}
+	\centering
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{nuevasfuncionalidades.png}
-	\caption{Herramienta para gestión de tareas en Dr. Scratch}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=8cm, keepaspectratio]{nuevasfuncionalidades.png}
+	\caption{Nuevas funcionalidades Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
 
@@ -1635,8 +1648,9 @@ puede verse un vídeo demostrando como usar la plataforma y está orientada a un
 más general.
 
 \begin{figure}
+	\centering
 	\graphicspath{{img/}}
-  \includegraphics[bb=0 0 800 600, width=14cm, keepaspectratio]{comofunciona.png}
+  \includegraphics[bb=0 0 800 600, width=18cm, height=8cm, keepaspectratio]{comofunciona.png}
 	\caption{Herramienta para gestión de tareas en Dr. Scratch}
   \label{figura:foro_hilos}
 \end{figure}
@@ -1862,8 +1876,8 @@ hairball -p NOMBREPLUGIN NOMBREPROYECTO
 
 % Las siguientes dos instrucciones es todo lo que necesitas
 % para incluir las citas en la memoria
-\bibliographystyle{unsrt}
-\bibliography{memoria}  % memoria.bib es el nombre del fichero que contiene
+%\bibliographystyle{unsrt}
+%\bibliography{memoria}  % memoria.bib es el nombre del fichero que contiene
 % las referencias bibliográficas. Abre ese fichero y mira el formato que tiene,
 % que se conoce como BibTeX. Hay muchos sitios que exportan referencias en
 % formato BibTeX. Prueba a buscar en http://scholar.google.com por referencias
@@ -1872,6 +1886,21 @@ hairball -p NOMBREPLUGIN NOMBREPROYECTO
 % http://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/
 
 
+ \begin{thebibliography}{1}
+
+  \bibitem{notes} Django Project. {\em Página oficial del framework para el servidor} \url{www.djangoproject.com}
+
+  \bibitem{impj}   {\em Imperial Japan 1800-1945} 1973:
+  Random House, N.Y. {\url{getbootstrap.com}}
+
+  \bibitem{norman} Grupo de Sistemas y Comunicaciones {\em Japan's emergence as a modern
+  state} 1940: International Secretariat, Institute of Pacific
+  Relations.
+
+  \bibitem{fo} Bob Tadashi Wakabayashi {\em Anti-Foreignism and Western
+  Learning in Early-Modern Japan} 1986: Harvard University Press.
+
+ \end{thebibliography}
 
 
 \end{document}

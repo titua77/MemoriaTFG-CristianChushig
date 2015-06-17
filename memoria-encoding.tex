@@ -1,0 +1,776 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Plantilla de memoria en LaTeX para la ETSIT - Universidad Rey Juan Carlos
+%%
+%% Por Gregorio Robles <grex arroba gsyc.urjc.es>
+%%     Grupo de Sistemas y Comunicaciones
+%%     Escuela TÃ©cnica Superior de Ingenieros de TelecomunicaciÃ³n
+%%     Universidad Rey Juan Carlos
+%% (muchas ideas tomadas de Internet, colegas del GSyC, antiguos alumnos...
+%%  etc. Muchas gracias a todos)
+%%
+%% La Ãºltima versiÃ³n de esta plantilla estÃ¡ siempre disponible en:
+%%     https://github.com/gregoriorobles/plantilla-memoria
+%%
+%% Para obtener PDF, ejecuta en la shell:
+%%   make
+%% (las imÃ¡genes deben ir en PNG o JPG)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper, 12pt]{book}
+%\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{times}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel} % Comenta esta lÃ­nea si tu memoria es en inglÃ©s
+\usepackage{url}
+%\usepackage[dvipdfm]{graphicx}
+\usepackage{graphicx}
+\usepackage{float}  %% H para posicionar figuras
+\usepackage[nottoc, notlot, notlof, notindex]{tocbibind} %% Opciones de Ã­ndice
+\usepackage{latexsym}  %% Logo LaTeX
+
+\title{Dr.Scratch Herramienta de anÃ¡lisis automÃ¡tico de proyectos Scratch}
+\author{Cristian David Chushig Muzo}
+
+\renewcommand{\baselinestretch}{1.5}  %% Interlineado
+
+\begin{document}
+
+\renewcommand{\refname}{BibliografÃ­a}  %% Renombrando
+\renewcommand{\appendixname}{ApÃ©ndice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PORTADA
+
+\begin{titlepage}
+\begin{center}
+\begin{tabular}[c]{c c}
+%\includegraphics[bb=0 0 194 352, scale=0.25]{logo} &
+\includegraphics[scale=0.25]{img/logo_vect.png} &
+\begin{tabular}[b]{l}
+\Huge
+\textsf{UNIVERSIDAD} \\
+\Huge
+\textsf{REY JUAN CARLOS} \\
+\end{tabular}
+\\
+\end{tabular}
+
+\vspace{3cm}
+
+\Large
+INGENIERÃ?A EN TELECOMUNICACIONES E INGENIERÃ?A TÃ‰CNICA EN SISTEMAS
+
+\vspace{0.4cm}
+
+\large
+Curso AcadÃ©mico 2014/2015
+
+\vspace{0.8cm}
+
+Trabajo Fin de Carrera
+
+\vspace{2.5cm}
+
+\LARGE
+Dr.Scratch AnÃ¡lisis automÃ¡tico de proyectos Scratch
+
+\vspace{4cm}
+
+\large
+Autor : Cristian David Chushig Muzo \\
+Tutor : Dr. Gregorio Robles \\
+Co-Tutor: JesÃºs Moreno LeÃ³n
+\end{center}
+\end{titlepage}
+
+\newpage
+\mbox{}
+\thispagestyle{empty} % para que no se numere esta pagina
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Para firmar
+\clearpage
+\pagenumbering{gobble}
+\chapter*{}
+
+\vspace{-4cm}
+\begin{center}
+\LARGE
+\textbf{Proyecto Fin de Carrera}
+
+\vspace{1cm}
+\large
+Dr.Scratch Herramienta de anÃ¡lisis automÃ¡tico de proyectos Scratch
+
+\vspace{1cm}
+\large
+\textbf{Autor :} Cristian Chushig Muzo \\
+\textbf{Tutor :} Dr. Gregorio Robles MartÃ­nez
+
+\end{center}
+
+\vspace{1cm}
+La defensa del presente Proyecto Fin de Carrera se realizÃ³ el dÃ­a \qquad$\;\,$ de \qquad\qquad\qquad\qquad \newline de 2015, siendo calificada por el siguiente tribunal:
+
+
+\vspace{0.5cm}
+\textbf{Presidente:}
+
+\vspace{1.2cm}
+\textbf{Secretario:}
+
+\vspace{1.2cm}
+\textbf{Vocal:}
+
+
+\vspace{1.2cm}
+y habiendo obtenido la siguiente calificaciÃ³n:
+
+\vspace{1cm}
+\textbf{CalificaciÃ³n:}
+
+
+\vspace{1cm}
+\begin{flushright}
+Fuenlabrada, a \qquad$\;\,$ de \qquad\qquad\qquad\qquad de 2015
+\end{flushright}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Dedicatoria
+
+\chapter*{}
+\pagenumbering{Roman} % para comenzar la numeracion de paginas en numeros romanos
+\begin{flushright}
+\textit{Dedicado a \\
+mi madre y su incansable  \\
+esfuerzo de sacar adelante \\
+a sus hijos}
+\end{flushright}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Agradecimientos
+
+\chapter*{Agradecimientos}
+%\addcontentsline{toc}{chapter}{Agradecimientos} % si queremos que aparezca en el Ã­ndice
+\markboth{AGRADECIMIENTOS}{AGRADECIMIENTOS} % encabezado
+
+Ha sido muy duro el camino, pero sin duda ha valido la pena. Afrontar la aventura de
+estudiar fuera de mi paÃ­s natal es uno de mis mayores aciertos
+
+El mÃ¡s grande de mis agradecimientos va dirigido a mi madre, aquella mujer luchadora que
+con su esfuerzo ha sacado adelante a tres hijos. Ha sido un ejemplo de cÃ³mo se tiene que
+conseguir lo que se quiere. Siempre llevo los valores inculcados, las costumbres dadas y
+mi identidad en cada paso que doy, cualquier logro conseguido en mi vida se lo debo a ella.
+Su pasiÃ³n, su valor y su amor en todos estos aÃ±os no sÃ³lo me han convertido en un profesional,
+sino tambiÃ©n en una persona de provechos. Un gracias nunca serÃ¡ suficiente, pero el
+agradecimiento de corazÃ³n queda plasmado en estas pocas palabras.
+
+TambiÃ©n no quisiera olvidarme de mi familia en Quito, siempre han sido constantes los apoyos
+recibidos y sin duda el cariÃ±o.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Resumen
+
+\chapter*{Resumen}
+%\addcontentsline{toc}{chapter}{Resumen} % si queremos que aparezca en el Ã­ndice
+\markboth{RESUMEN}{RESUMEN} % encabezado
+
+
+Este trabajo recoge el desarrollo de una plataforma web, Dr. Scratch, orientada a la 
+evaluaciÃ³n de proyectos Scratch en relaciÃ³n a aspectos de pensamiento computacional. 
+El nÃºcleo de Dr. Scratch es \texttt{Hairball}, un framework usado para el anÃ¡lisis estÃ¡tico de 
+proyectos Scratch a travÃ©s de una consola Linux. Dr. Scratch presenta los resultados
+de \texttt{Hairball} adaptados al pÃºblico de la aplicaciÃ³n.
+
+El objetivo principal es crear una herramienta automatizada y de fÃ¡cil uso para el 
+anÃ¡lisis de proyectos Scratch. Para esto, el interfaz usado es web y trata de ser 
+lo mÃ¡s amigable posible con el pÃºblico, especialmente niÃ±os y jÃ³venes que inician
+su camino en el mundo de la programaciÃ³n.
+
+El proyecto se ha realizado principalmente con el framework Django en la parte del
+servidor, \texttt{Hairball} como nÃºcleo y Bootstrap como framework para el \emph{front end}.
+
+El proyecto Dr. Scratch se desarrolla dentro de una iniciativa del Grupo de Sistemas
+y Comunicaciones (GSyC) de la Universidad Rey Juan Carlos (URJC) que investiga el
+impacto del Desarrollo del pensamiento computacional y busca comprobar las destrezas
+que se pueden potenciar en el contexto y proceso del aprendizaje de la programaciÃ³n.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Resumen en inglÃ©s
+
+\chapter*{Summary}
+%\addcontentsline{toc}{chapter}{Summary} % si queremos que aparezca en el Ã­ndice
+\markboth{SUMMARY}{SUMMARY} % encabezado
+
+Here comes a translation of the ``Resumen'' into English. Please, double check
+it for correct grammar and spelling. As it is the translation of the ``Resumen'',
+which is supposed to be written at the end, this as well should be filled out
+just before submitting.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ã?NDICES %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Las buenas noticias es que los Ã­ndices se generan automÃ¡ticamente.
+% Lo Ãºnico que tienes que hacer es elegir cuÃ¡les quieren que se generen,
+% y comentar/descomentar esa instrucciÃ³n de LaTeX.
+
+%%%% Ã?ndice de contenidos
+\tableofcontents
+%%%% Ã?ndice de figuras
+\cleardoublepage
+%\addcontentsline{toc}{chapter}{Lista de figuras} % para que aparezca en el indice de contenidos
+\listoffigures % indice de figuras
+%%%% Ã?ndice de tablas
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{Lista de tablas} % para que aparezca en el indice de contenidos
+%\listoftables % indice de tablas
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INTRODUCCIÃ“N %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{IntroducciÃ³n}
+\label{sec:intro} % etiqueta para poder referenciar luego en el texto con ~\ref{sec:intro}
+\pagenumbering{arabic} % para empezar la numeraciÃ³n de pÃ¡gina con nÃºmeros
+
+El desarrollo de la tecnologÃ­a estÃ¡ cambiando nuestros hÃ¡bitos cotidianos: la forma
+en que nos relacionamos con las personas, la manera de trabajar y significativamente
+nuestra forma de aprender. El conocimiento ahora es global, al alcance de todos, con
+una sencilla bÃºsqueda a travÃ©s de un dispositivo conectado a internet tenemos incontable
+informaciÃ³n en nuestras manos. Pero, girando la atenciÃ³n al uso de la tecnologÃ­a en las 
+aulas nos encontramos con un uso pasivo, convirtiendo al estudiante en usuario de 
+aplicaciones. Los escolares, nativos digitales, conocen cÃ³mo buscar informaciÃ³n en internet 
+y manejar aplicaciones de una manera natural, pero la tecnologÃ­a de trasfondo es invisible 
+para ellos, lo que hace que pierdan muchas oportunidades y retos para su desarrollo en la
+enseÃ±anza de programaciÃ³n.
+La programaciÃ³n en las aulas no es un descubrimiento nuevo, existen desde los aÃ±os 60  con \texttt{Logo}. 
+Pero, su popularidad se ha incrementando en los Ãºltimos aÃ±os gracias a nuevas plataformas y aplicaciones
+como \texttt{AppInventor}, \texttt{Stencyl}, \texttt{Alice}, \texttt{Etoys} y \texttt{Scratch}.
+
+Y es Scratch donde gira el presente proyecto. Scratch ha tenido una penetraciÃ³n importante 
+en la educaciÃ³n americana, y una de las muchas razones es su facilidad de aprendizaje. Los
+bloques grÃ¡ficos permiten a los usuarios un aprendizaje eficaz, y su entorno amigable permite 
+la potenciaciÃ³n de la creatividad en el diseÃ±o y desarrollo de los proyectos.
+
+El objetivo de la programaciÃ³n en edades tempranas es proveer de nuevas habilidades a niÃ±os y
+jÃ³venes, habilidades necesarias en un entorno digital y globalizado. Encarar procesos de
+autocorreciÃ³n y bÃºsqueda de errores, enfrentarse a retos de resoluciÃ³n de problemas son ejemplos
+claros de Ã©stas habilidades.
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OBJETIVOS %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{Objetivos}
+\label{chap:objetivos}
+
+\section{Objetivo general}
+\label{sec:objetivo-general}
+
+El objetivo general del proyecto es crear una herramienta y plataforma para que los
+usuarios de Scratch puedan evaluar sus proyectos y hacer un seguimiento de su progreso
+en relaciÃ³n a habilidades de pensamiento computacional.
+
+
+\section{Objetivos especÃ­ficos}
+\label{sec:objetivos-especificos}
+
+\begin{itemize}
+  \item Crear una arquitectura software que permita la convergencia entre el framework \texttt{Hairball}
+  con las tecnologÃ­as web, con el fin de mejorar su usabilidad y experiencia de usuario. En 
+	primera instancia el anÃ¡lisis de los proyectos se harÃ¡ subiÃ©ndolos en el formato sb2.
+  \item Construir un modelo de datos que se adapte a la salida de datos que ofrece \texttt{Hairball} y
+  parametrizarlo con las herramientas ofrecidas por Django.
+  \item Adaptar el contexto ofrecido por Django a todo el potencial que ofrece Bootstrap como
+  herramienta de \emph{front end}.
+  \item Introducir tÃ©cnicas de \emph{ludificaciÃ³n} dentro de la plataforma para atraer la atenciÃ³n y
+  uso de los usuarios.
+	\item Permitir un seguimiento de la evoluciÃ³n de los usuarios de Dr. Scratch en tÃ©rminos de 
+	las habilidades de pensamiento computacional adquiridas a lo largo del uso de la plataforma
+	mediante los proyectos evaluados.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ESTADO DEL ARTE %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{Estado del arte}
+
+En este capÃ­tulo se introducirÃ¡n las bases tecnolÃ³gicas mÃ¡s importantes del proyecto.
+
+
+\section{Scratch}
+\label{sec:seccion2}
+Scratch es un proyecto del Grupo Lifelong Kindergarten del Laboratorio de Medios del MIT.
+Scratch permite programar historias interactivas, juegos y animaciones a travÃ©s de un
+entorno completamente visual. Se fundamenta en el uso de personajes, escenarios y bloques
+grÃ¡ficos con una funcionalidad especÃ­fica que permite crear una lÃ³gica e interacciÃ³n
+entre los elementos. AdemÃ¡s Scratch es gratuito, de uso libre, multilenguaje y es muy
+recomendado para la iniciaciÃ³n en el mundo de la programaciÃ³n. Su uso se ha intensificado
+en los Ãºltimos aÃ±os y dentro de su nube tiene millones de proyectos almacenados que
+pueden ser compartidos y vistos por otros usuarios Scratch.
+
+
+\section{\texttt{Hairball}}
+\label{sec:seccion3}
+\texttt{Hairball} es un framework utilizado para el anÃ¡lisis de proyectos Scratch. Creado por Bryce
+Boe en la universidad de Santa Barbara. \texttt{Hairball} se constituye esencialmente de plugins.
+Los plugins iniciales fueron desarrollados por la universidad de Santa Barbara, y a estos se
+suman otros plugins programados por la universidad Rey Juan Carlos y en concreto por JesÃºs Moreno LÃ©on.
+El framework es de libre acceso y estÃ¡ disponible en la red.\footnote{\url{http://github.com/ucsb-cs-education/Hairball}}.
+
+Los plugins que se puedan encontrar en la Ãºltima versiÃ³n de \texttt{Hairball} son:
+
+\begin{itemize}
+  \item \texttt{blocks.DeadCode}.
+  Busca cÃ³digo que no llega a ejecutarse nunca, parametrizÃ¡ndolo en un valor entero.
+  \item \texttt{blocks.BlockCounts}.
+  Cuenta el nÃºmero de bloques asociados al proyecto y devuelve su valor en un entero.
+  \item \texttt{initialization.AttributeInitialization}.
+  Busca propiedades de los personajes que son modificadas en algÃºn punto del programa,
+  pero que no se inicializan al comenzar la 	ejecuciÃ³n del proyecto. Por cada propiedad
+  analizada del personaje: posiciÃ³n, tamaÃ±o, 	disfraz, visibilidad y orientaciÃ³n, se
+  muestra un valor 0 si la propiedad no se modifica, 	1 si se modifica pero no se inicializa,
+  2 si se inicializa correctamente.
+  \item \texttt{duplicate.DuplicateScripts}.
+  Busca programas repetidos en el proyecto. Programas que deberÃ­an haber sido implementados
+  con un mÃ©todo definido por el programador.
+  \item \texttt{mastery.Mastery}.
+  Asigna una puntuaciÃ³n que indica el grado de maestrÃ­a demostrado en la programaciÃ³n del
+  proyecto para diferentes aspectos: abstracciÃ³n, paralelizaciÃ³n, razonamiento lÃ³gico,
+  sincronizaciÃ³n, control de flujo, interactividad con el usuario, representaciÃ³n de la informaciÃ³n.
+	
+	
+\end{itemize}
+
+
+\section{Django}
+\label{sec:seccion4}
+Django es un framework web de cÃ³digo abierto escrito en \texttt{Python} que permite construir aplicaciones
+web mÃ¡s rÃ¡pido y con menos cÃ³digo. Proporciona un conjunto de herramientas para crear aplicaciones
+siguiendo los principios de \texttt{DRY} (\emph{Don't Repeat Yourself}), para evitar la duplicidad de lÃ­neas de cÃ³digo.
+Se basa en el diseÃ±o \texttt{MVC} (Modelo Vista Controlador), lo que le brinda independencia y permite que
+las partes funcionales estÃ©n claramente separadas.
+Django permite la conexiÃ³n con distintos sistemas de bases de datos como MySQL, Oracle.
+
+
+
+\section{Bootstrap}
+\label{sec:seccion5}
+Bootstrap es un framework desarrollado por Twitter para crear interfaces y diseÃ±os web responsive
+basados en HTML5 y CSS3. Su principal ventaja es la de adaptar la interfaz de la aplicaciÃ³n web
+al tamaÃ±o del dispositivo desde donde se estÃ¡ accediendo. La documentaciÃ³n ofrecida permite la
+construcciÃ³n de webs de forma eficaz.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DISEÃ‘O E IMPLEMENTACIÃ“N %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{DiseÃ±o e implementaciÃ³n}
+
+Este capÃ­tulo es el eje principal del proyecto, en el que se describe la arquitectura,
+el diseÃ±o y se hace una descripciÃ³n de las funcionalidades mÃ¡s importantes de Dr.
+Scratch. EstÃ¡ dividido en tres partes: el servidor basado en Django, el framework
+\texttt{Hairball} y el frontEnd basado en Bootstrap.
+
+\section{Arquitectura general}
+\label{sec:arquitectura}
+
+La arquitectura de Dr. Scratch se muestra en la figura 4.1. EstÃ¡ claramente identificado
+con el modelo cliente-servidor. El usuario a travÃ©s de un navegador subirÃ¡ su proyecto
+o introducirÃ¡ el identificador a travÃ©s de un formulario. Esta peticiÃ³n serÃ¡ recogida 
+por el manejador de Django serÃ¡ procesada por un mÃ©todo asociada a la URL, dentro de 
+este mÃ©todo se llamarÃ¡ a los plugins de \texttt{Hairball} recogiendo los datos parametrizados en
+el modelo de datos para su almacenamiento, y se responderÃ¡ renderizando el contenido
+en un template.
+
+\begin{itemize}
+  \item Servidor. Se basa principalmente en Django. Django permite la abstracciÃ³n de la
+	base de datos, el modelo vista controlador y la interacciÃ³n con el componente \emph{front end}.
+  \item \texttt{Hairball}. Es un framework que permite el anÃ¡lisis de proyectos Scratch. Su uso es
+	a travÃ©s de una consola \texttt{bash}. \texttt{Hairball} se compone de plugins, para usar cada uno se
+	tiene que realizar una llamada independiente por consola.
+  \item Cliente. Generalmente el acceso a la plataforma se hace mediante un navegador. El
+	desarrollo de la parte \emph{front end} se realiza conjuntamente con Django y Bootstrap, este
+	Ãºltimo permite una funcionalidad \emph{responsive} lo que permite que el acceso a Dr. Scratch
+	puede hacerse por un dispositivo mÃ³vil o tablet, sin la pÃ©rdida del diseÃ±o original.
+	
+\end{itemize}
+
+
+\section{DiseÃ±o e implementaciÃ³n del servidor}
+\label{sec:servidor}
+
+El diseÃ±o e implementaciÃ³n del servidor se basa en dos partes representativas. Por un lado todo lo
+correspondiente a la plataforma web con Django y por otro la incorporaciÃ³n de la funcionalidad de
+\texttt{Hairball} y su correspondiente tratamiento de informaciÃ³n.
+
+\subsection{ConexiÃ³n con \texttt{Hairball}}
+
+\texttt{Hairball} provee la salida de datos a travÃ©s de la consola. Para cada plugin de \texttt{Hairball} se debe hacer una llamada
+a travÃ©s de la consola. En esta secciÃ³n se detalla con ejemplos las salidas de cada uno de los plugins usados en
+Dr.Scratch, ya que esto contribuirÃ¡ al entendimiento del modelo de datos del proyecto.
+
+Cada uno de los plugins se ejecutan a travÃ©s de una consola \texttt{bash} y su modo de uso es el siguiente:
+
+\begin{center}
+\texttt{Hairball} -p "`plugin-\texttt{Hairball}"' "`nombre-proyecto-formato-sb2"'
+\end{center}
+
+Para evaluar las salidas de \texttt{Hairball} se usarÃ¡ el proyecto Scratch test-project.sb2, descargado a travÃ©s de la 
+nube de Scratch.\footnote{\url{scratch.mit.edu/}}
+
+Para usar el plugin DeadCode se hace la siguiente llamada.
+\begingroup
+\fontsize{7pt}{8pt}\selectfont
+\begin{verbatim}
+$ \texttt{Hairball} -p blocks.DeadCode test-project.sb2 
+test-project.sb2 
+'Stage': [kurt.Script([ 
+    kurt.Block('whenIReceive', u'never'), 
+    kurt.Block('startScene', u'castle')], pos=(366, 155)), 
+           kurt.Script([  
+    kurt.Block('whenIReceive', u'yeppers'), 
+    kurt.Block('startScene', u'castle')], pos=(229, 243)), 
+           kurt.Script([ 
+    kurt.Block('whenIReceive', u'no'), 
+    kurt.Block('startScene', u'castle')], pos=(85, 312))] 
+\end{verbatim}
+\endgroup
+
+
+De la salida se deduce que para el proyecto Scratch test-project.sb2 existen 6 bloques de cÃ³digo muerto dentro de 3 scripts. AdemÃ¡s se puede tener la informaciÃ³n de la posiciÃ³n asociado al cÃ³digo muerto.
+
+Para el uso del plugin AttributeInitialization se presenta la siguiente salida:
+
+\begingroup
+\fontsize{7pt}{8pt}\selectfont
+\begin{verbatim}
+$ \texttt{Hairball} -p initialization.AttributeInitialization test-project.sb2 
+test-project.sb2
+{u'frozen_elsa_by_meddek-d6w674h': {'position': 2, 'size': 0, 'costume': 0, 'visibility': 2, 'orientation': 0}, 
+u'Sprite8': {'position': 0, 'size': 0, 'costume': 0, 'visibility': 2, 'orientation': 0}, 
+u'ElsaPose': {'position': 2, 'size': 0, 'costume': 0, 'visibility': 2, 'orientation': 0}, 
+u'Sprite4': {'position': 2, 'size': 0, 'costume': 0, 'visibility': 2, 'orientation': 0}, 
+'stage': {'background': 2}, 
+u'Sprite2': {'position': 0, 'size': 0, 'costume': 0, 'visibility': 2, 'orientation': 0},
+ u'Sprite3': {'position': 2, 'size': 0, 'costume': 1, 'visibility': 2, 'orientation': 0},
+ u'Sprite1': {'position': 2, 'size': 0, 'costume': 0, 'visibility': 2, 'orientation': 0}}
+\end{verbatim}
+\endgroup
+
+Este plugin busca propiedades de los personajes que son modificadas en algÃºn punto del 
+proyecto, pero que no se inicializaron al comenzar el flujo del programa. Las propiedades 
+de los personajes son: position, size, costume, visibility, orientation. Por cada propiedad
+analizada de cada personaje se muestra un valor parametrizado: un 0 si no ha modificado, un
+1 si se modifica pero no se inicializa, 2 si se inicializa correctamente. Por lo tanto, las
+propiedades que tienen un valor de 1 tienen un error de programaciÃ³n, y serÃ¡n las propiedades
+que tienen el valor 1 las que se almacenan para su posterior tratamiento.
+
+
+Para el uso del plugin Sprite naming se presenta la siguiente salida:
+
+\begingroup
+\fontsize{7pt}{8pt}\selectfont
+\begin{verbatim}
+$ \texttt{Hairball} -p convention.SpriteNaming test-project.sb2 
+test-project.sb2
+5 default sprite names found:
+Sprite2
+Sprite8
+Sprite1
+Sprite4
+Sprite3
+\end{verbatim}
+\endgroup
+
+Este plugin busca los personajes del proyecto que han mantenido el nombre por defecto. En
+la salida se puede observar un listado de los nombres de esto personajes. Lo que se 
+almacenará dentro de la base de datos será el nombre por defecto que aparece en el listado
+de la salida del plugin. En el ejemplo anterior: Sprite2, Sprite8, Sprite1, Sprite4, Sprite3.
+
+Para el uso del plugin DuplicateScripts se muestra la siguiente salida:
+$ \texttt{Hairball} -p duplicate.DuplicateScripts test-project.sb2 
+test-project.sb2
+4 duplicate scripts found
+['when @greenFlag clicked', 'set rotation style %s', 'forever%s', 'move %s steps', 'if on edge, bounce']
+['when @greenFlag clicked', 'set rotation style %s', 'forever%s', 'move %s steps', 'if on edge, bounce']
+['when @greenFlag clicked', 'forever%s', 'next costume', 'wait %s secs']
+['when @greenFlag clicked', 'forever%s', 'if %s then%s', 'say %s for %s secs', 'stop %s', 'touching %s?']
+\end{verbatim}
+\endgroup
+
+
+Por último, se detalla el plugin que ofrece resultados cuantificables del pensamiento 
+computacional, y es el más importante desde el punto de vista de información relevante
+al usuario, el plugin Mastery.
+
+
+\begingroup
+\fontsize{7pt}{8pt}\selectfont
+\begin{verbatim}
+$ \texttt{Hairball} -p mastery.Mastery test-project.sb2 
+test-project.sb2
+{'Abstraction': 2, 'Parallelization': 1, 'Logic': 1, 'Synchronization': 2, 'FlowControl': 2, 'UserInteractivity': 2, 'DataRepresentation': 2}
+Total mastery points: 12/21
+Average mastery points: 1.71/3
+Overall programming competence: Developing
+\end{verbatim}
+\endgroup
+
+Este plugin no tiene presente los errores encontrados en los otros plugins mencionados.
+Analiza el proyecto Scratch y asigna una puntuación que cuantifica el grado de expertise
+mostrado en la programación para diferentes aspectos del pensamiento computacional: la
+abtracción, paralelización, razonamiento lógico, sincronización, control de flujo,
+interactividad con el usuario y representación de la información. Cada aspecto tiene
+una puntuación máxima de 3, siendo 1 el nivel más básico y 3 un nivel más experto. En
+total la suma de los 7 aspectos es 21. El plugin suma los valores obtenidos en cada 
+aspecto del pensamiento computacional y en función del resultado sacado asigna un
+nivel de maestría para el proyecto analizado, siendo los niveles: básico, en desarrollo
+y profesional.
+
+
+\subsection{Modelo de datos}
+El modelo de datos tiene como objetivo adecuarse a las salidas de consola de \texttt{Hairball}. Una de las principales ventajas de Django es que la conexiÃ³n con los sistemas de bases de datos es transparente para el usuario. 
+Simplemente se debe realizar la respectiva configuraciÃ³n en el fichero settings.py de la base de datos. Para este proyecto se uso en primera instancia SQlite.
+
+Para la especificaciÃ³n del modelo de datos en Django se debe modificar el fichero models.py. 
+
+
+\begin{figure}
+  \centering
+  \includegraphics{img/modelo}
+  \caption{Estructura del parser básico}
+\end{figure}
+
+
+\section{DiseÃ±o e implementaciÃ³n del cliente}
+\label{sec:cliente}
+
+El modelo de datos se construye de acuerdo a las salidas de datos ofrecidas por los plugins de
+\texttt{Hairball}.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RESULTADOS %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{Resultados}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONCLUSIONES %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\chapter{Conclusiones}
+\label{chap:conclusiones}
+
+
+\section{ConsecuciÃ³n de objetivos}
+\label{sec:consecucion-objetivos}
+
+El presente proyecto consiguiÃ³ el objetivo general que se planteÃ³, la 
+construcciÃ³n de una plataforma web donde los usuarios de Scratch pueden 
+obtener una valoraciÃ³n de sus proyectos. Esta plataforma es una versiÃ³n
+beta de Dr. Scratch, las nuevas funcionalidades y el potencial de Dr. 
+Scratch da un espectro de desarrollo importante y atractivo.
+
+Dentro de los objetivos especÃ­ficos tambiÃ©n se puede valorar de manera
+positiva toda la labor de desarrollo. La convergencia del framework
+\texttt{Hairball} con Django fue satisfactorio. Se logrÃ³ parametrizar las salidas
+que ofrecÃ­a cada plugin de \texttt{Hairball} dentro de un contexto de modelo de
+datos, y gracias a esto tener una estructura fiable para el almacenamiento
+y extracciÃ³n de los componentes de pensamiento computacional asociados
+a cada proyecto. En las primeras versiones del modelo de datos se notÃ³
+las posibles mejoras para hacer mÃ¡s consistente las relaciones entre las
+distintas tablas y se optÃ³ por la reformulaciÃ³n del modelo de datos hasta
+que se obtuvo una versiÃ³n que a nuestro parecer era viable y era capaz
+de soportar las consultas realizadas por el componente \emph{front end} de una
+manera eficiente, sin repercutir en tÃ©rminos de rendimiento.
+
+Uno de los aportes no contemplados en los objetivos iniciales fue la
+manera en cÃ³mo el usuario mete su proyecto dentro de la plataforma
+para analizarlo. En primera instancia se decidiÃ³ subirlo a Dr. Scratch
+para evaluarlo, pero se comprobÃ³ que la eficiencia no era del todo
+buena, asÃ­ que se cambiÃ³ el enfoque y haciendo uso de la API de Scratch
+y del aporte de un script hecho por un desarrollador externo se 
+obtuvo otro mÃ©todo mÃ¡s eficaz. Simplemente con la introducciÃ³n del 
+identificador del proyecto que se asocia en la nube de Scratch ahora
+se puede realizar el anÃ¡lisis, todo esto repercutiendo en la optimizaciÃ³n 
+de respuesta del servidor al usuario.
+
+
+En el objetivo de introducir ludificaciÃ³n dentro de Dr. Scratch la 
+valoraciÃ³n no fue satisfactoria. Pese a que hubo contactos con las 
+tÃ©cnicas de ludificaciÃ³n, Ã©stas no fueron incluidas principalmente 
+por tÃ©rminos de tiempo y focalizaciÃ³n en otras funcionalidades que 
+se consideraban con un grado mayor de relevancia. Una de las medidas
+adoptadas para la inclusiÃ³n de la ludificaciÃ³n dentro de Dr. Scratch
+fue elaborar funciones y procedimientos de almacenamiento de la 
+informaciÃ³n mÃ¡s Ã³ptimos. Las versiones iniciales de los mÃ©todos para 
+almacenar los datos importantes de los plugins no eran demasiado 
+Ã³ptimos en relaciÃ³n a la modularidad. AsÃ­ pues, en la Ãºltima versiÃ³n
+de los procs usados se optÃ³ por dar independencia entre los datos de 
+los plugins, asÃ­ como reformular varios campos de las tablas del
+modelo de datos, el resultado fue una robustez y optimizaciÃ³n en la
+adquisiciÃ³n de datos que para una versiÃ³n futura de Dr. Scratch 
+permitirÃ¡ una mayor integraciÃ³n con la ludificaciÃ³n, ya que el 
+tratamiento de los datos serÃ¡ importante.
+
+Otro de los hitos que no se pudo cumplir fue la construcciÃ³n de una
+funcionalidad que permita el seguimiento de los usuarios para poder
+evaluar su progreso en el grado de adquisiciÃ³n de habilidades de 
+pensamiento computacional. Se hizo un seguimiento e hincapiÃ© en la 
+introducciÃ³n de este componente, pero tambiÃ©n por motivos de tiempo
+no fue posible su integraciÃ³n. 
+
+
+\section{AplicaciÃ³n de lo aprendido}
+\label{sec:aplicacion}
+
+Sin lugar a dudas los conocimientos aprendidos en la asignatura de Servicios
+y Aplicaciones Telemáticas (SAT) han sido vitales para el desarrollo del 
+proyecto. Todas las nociones básicas del desarrollo web, cómo se procesan
+las peticiones HTTP, la iniciación en HTML y CSS para la parte Front End.
+En SAT también aprendí a usar Django, la parte núcleo con la que se 
+desarrolla el servidor de Dr. Scratch. Tuve contanto con el concepto de 
+modelo vista y controlador, que es el paradigma que usa Django. El modo
+en cómo crear una aplicación RESTful a través de las funcionalidades de
+
+Además, debo mencionar otros conocimientos adquiridos por asignaturas como
+Diseño de Bases de Datos, Metodología de la programación y Estructura de 
+Datos me han permitido tener una visión más global y abstracta a la hora
+de establecer la lógica y flujo del programa.
+
+
+
+\section{Lecciones aprendidas}
+\label{sec:lecciones_aprendidas}
+
+La lección más importante es como trabajar con distintas tecnologías para
+conseguir un objetivo común. El hecho de juntar diversos frameworks era
+un reto, ya que se debían establecer las pautas para su comunicación y 
+que esta sea fiable y eficaz. En un principio, el mayor reto estaba en el
+framwork Hairball, que era un poco desconocido, pero se logró salir con
+resultados positivos.
+
+Otro de los puntos positivos fue aprendar de diseño y maquetación web. Dentro
+de la carrera aprendimos como usar Django para desarrollar el servidor, 
+procesar las peticiones y la inclusión de templates, pero esto centrándonos
+en mayor medida en la parte de lógica, sin meternos demasiado en la parte
+de Front End. Con esto proyecto aprendí a usar Bootstrap y darle un matiz
+más profesional a mis aplicaciones web, además de poder crear aplicaciones
+responsive que puedan ser abiertas sin pérdida de estilo en cualquier
+dispositivo móvil. 
+
+Por último quisiera señalar un aspecto que nuevo y novedoso que me aportó
+gran interés, el pensamiento computacional. La introducción de la 
+programación dentro de la enseñanza de los niños con el fin de adquirir
+nuevas habilidades muy útiles dentro del contexto actual. Descubrí que 
+la programación ayuda y tiene un impacto enorme en como evolucionan 
+ciertas partes de nuestro cerebro, y aunque de estos matices todavía
+no he profundizado, sin duda es un área que me incentiva a continuar con
+una investigación.
+
+
+\section{Trabajos futuros}
+\label{sec:trabajos_futuros}
+
+
+Sin lugar a dudas Dr. Scratch tiene muchas funcionalidades que puede ser agregadas
+y muchas otras que pueden ser optimizadas.
+
+
+\begin{enumerate}
+  \item Componente de red social. La interacciÃ³n entre usuarios de Dr. Scratch y su
+	cooperaciÃ³n es sin duda un punto fuerte de mejora para la plataforma. La posibilidad
+	de que los usuarios puedan competir por mejorar sus habilidades de pensamiento
+	computacional requerirÃ¡ nuevas herramientas dentro de Dr. Scratch, por ejemplo, la
+	inclusiÃ³n de comentarios, poder dar validaciones entre usuarios de las habilidades
+	adquiridas o poder conectar Dr. Scratch con redes sociales son sÃ³lo pequeÃ±os ejemplos.
+  \item CreaciÃ³n de APIs. La posibilidad de que Dr. Scratch puede interactuar con
+	otros sistemas o aplicaciones puede ser muy novedoso. Para ello, la implementaciÃ³n
+	de APIs que tengan la capacidad de establecer comunicaciones de manera coherente y
+	sin pÃ©rdida de seguridad es vital. AdemÃ¡s, las APIs no sÃ³lo servirÃ­an a otras
+	plataformas, tambiÃ©n permitirÃ¡n que usuarios con un conocimiento mÃ¡s experto pueda
+	hacer uso de estas librerÃ­as para automatizar tareas de anÃ¡lisis de proyectos 
+	reduciendo considerablemente los tiempos.
+	\item Peticiones asÃ­ncronas. En este punto, Dr. Scratch es capaz de resolver las
+	peticiones de usuarios sin problemas, pero toda su funcionamiento se hace de una
+	manera muy estÃ¡tica, refiriÃ©ndome a cÃ³mo se procesan las peticiones y se responden
+	a estas. Otra lÃ­nea de mejora es darle un contexto asÃ­ncrono, que todas las 
+	peticiones de anÃ¡lisis se hagan por AJAX por ejemplo.
+	\item Seguridad. Pese a que el proyecto se desarrollÃ³ con frameworks y tecnologÃ­a 
+	muy fiable y probada por muchos usuarios, existe una lÃ­nea de mejora que es 
+	significativa, la seguridad. Una revisiÃ³n y una planificaciÃ³n de validaciones del
+	software podrÃ­a evitar vulnerabilidades que se nos escapa en este punto. 
+\end{enumerate}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APÃ‰NDICE(S) %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\appendix
+\chapter{InstalaciÃ³n y uso de \texttt{Hairball}}
+\label{app:manual}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLIOGRAFIA %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+
+
+\end{document}
